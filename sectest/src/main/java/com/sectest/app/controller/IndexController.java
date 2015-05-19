@@ -16,4 +16,9 @@ public class IndexController {
         return "index";
     }
 
+    @RequestMapping(value="/start")
+    public String start () {
+        LOG.debug("start page requested");
+        return "index";
+    }
 }
