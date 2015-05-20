@@ -6,6 +6,7 @@ import javax.servlet.ServletRegistration;
 
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 
 public class SecuritySampleInitializer implements WebApplicationInitializer {
@@ -21,6 +22,9 @@ public class SecuritySampleInitializer implements WebApplicationInitializer {
 
 		servlet.setLoadOnStartup(1);
 		servlet.addMapping("/");
+		
+		DelegatingFilterProxy filter = new DelegatingFilterProxy("springSecurityFilterChain");
+        filter.setContextAttribute("org.springframework.web.servlet.FrameworkServlet.CONTEXT.dispatcher");
+        container.addFilter("springSecurityFilterChain", filter).addMappingForUrlPatterns(null, false, "/*");
 	}
-
 }
